@@ -18,20 +18,20 @@ export const experiences = [
 export const projects = [
   {
     id: 1,
-    title: "PROJECT NAME",
-    category: "FEATURED PROJECT",
+    title: "CHAT SYSTEM",
+    category: "Backend Developer",
     description:
-      "Describe the problem this project solves, its key features, and your contribution here.",
-    technologies: ["Next.js", "TypeScript", "NestJS"],
+      "Developed scalable chat and room management APIs with role-based permissions and real-time synchronization using WebSocket and Redis Pub/Sub.",
+    technologies: [" NestJS", "Socket.IO", "MongoDB", "PostgreSQL", "Redis"],
     isReverse: true,
   },
   {
     id: 2,
-    title: "PROJECT NAME",
-    category: "FEATURED PROJECT",
+    title: "LEARN MANAGEMENT SYSTEM",
+    category: "Frontend Developer",
     description:
-      "Describe the problem this project solves, its key features, and your contribution here.",
-    technologies: ["React", "PostgreSQL", "Docker"],
+      "Built a responsive course management application using Next.js and Tailwind CSS, supporting CRUD operations, course publishing, animations, and multimedia upload and preview.",
+    technologies: ["Next.js", "TailwindCSS"],
     isReverse: false,
   },
 ];

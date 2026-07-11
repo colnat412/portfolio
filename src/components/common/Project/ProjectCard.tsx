@@ -37,7 +37,7 @@ const ProjectCard = (props: ProjectCardProps) => {
       </div>
 
       <div className={isReverse ? "text-left lg:text-right" : "text-left"}>
-        <p className="text-sm font-medium text-violet-400">{category}</p>
+        <p className="text-md font-medium text-violet-400">{category}</p>
         <h3 className="mt-2 text-3xl font-bold text-white sm:text-4xl">
           {title}
         </h3>

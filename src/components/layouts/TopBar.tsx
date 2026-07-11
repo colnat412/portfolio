@@ -1,4 +1,5 @@
 import { cn } from "@/libs/utils";
+import ScrollButton from "@/components/common/ScrollButton";
 
 interface TopBarProps {
   className?: string;
@@ -13,22 +14,36 @@ const TopBar = (props: TopBarProps) => {
         className,
       )}
     >
-      <a className="cursor-pointer text-2xl text-white" href="#home">
+      <ScrollButton className="cursor-pointer text-2xl text-white" targetId="home">
         COLNAT
-      </a>
-      <nav aria-label="Main navigation" className="flex h-28 items-center gap-25">
-        <a className="cursor-pointer text-white" href="#home">
+      </ScrollButton>
+      <nav
+        aria-label="Main navigation"
+        className="flex h-28 items-center gap-25"
+      >
+        <ScrollButton className="cursor-pointer text-white" targetId="home">
           Home
-        </a>
-        <a className="cursor-pointer text-white" href="#work-experience">
+        </ScrollButton>
+        <ScrollButton
+          className="cursor-pointer text-white"
+          targetId="work-experience"
+        >
           About
-        </a>
-        <a className="cursor-pointer text-white" href="#projects">
+        </ScrollButton>
+        <ScrollButton className="cursor-pointer text-white" targetId="projects">
           Projects
+        </ScrollButton>
+        <a
+          className="cursor-pointer text-white"
+          href="/SofwareEngineer_NguyenTanLoc.pdf"
+          rel="noreferrer"
+          target="_blank"
+        >
+          Resume
         </a>
-        <a className="cursor-pointer text-white" href="#contact">
+        <ScrollButton className="cursor-pointer text-white" targetId="contact">
           Contact
-        </a>
+        </ScrollButton>
       </nav>
     </header>
   );
