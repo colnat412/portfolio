@@ -17,7 +17,7 @@ const ProjectCard = (props: ProjectCardProps) => {
         isReverse ? "lg:[&>*:first-child]:order-2" : ""
       }`}
     >
-      <div className="flex min-h-64 flex-col overflow-hidden rounded-2xl border border-violet-500/30 bg-[#1A0B2E] shadow-[0_14px_36px_rgba(0,0,0,0.25)]">
+      <div className="flex min-h-56 flex-col overflow-hidden rounded-xl border border-violet-500/30 bg-[#1A0B2E] shadow-[0_14px_36px_rgba(0,0,0,0.25)] sm:min-h-64 sm:rounded-2xl">
         <div className="flex items-center justify-between border-b border-violet-500/20 px-5 py-3 text-xs text-violet-200/70">
           <span>PROJECT PREVIEW</span>
           <span>{String(index + 1).padStart(2, "0")}</span>
@@ -38,7 +38,7 @@ const ProjectCard = (props: ProjectCardProps) => {
 
       <div className={isReverse ? "text-left lg:text-right" : "text-left"}>
         <p className="text-md font-medium text-violet-400">{category}</p>
-        <h3 className="mt-2 text-3xl font-bold text-white sm:text-4xl">
+        <h3 className="mt-2 wrap-break-word text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
           {title}
         </h3>
         <p className="mt-5 rounded-xl bg-[#1A0B2E] p-5 text-sm leading-6 text-violet-100/80 shadow-[0_10px_26px_rgba(0,0,0,0.2)] sm:text-base">

@@ -11,12 +11,12 @@ const Footer = (props: FooterProps) => {
       className={cn("bg-[#1A0B2E] text-white", className)}
       id="contact"
     >
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-6 py-14 sm:px-10 sm:py-16 lg:flex-row lg:items-end lg:justify-between">
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:flex-row lg:items-end lg:justify-between lg:px-10">
         <div className="max-w-2xl space-y-3">
           <p className="text-sm font-medium tracking-[0.2em] text-violet-300">
             CONTACT
           </p>
-          <h2 className="text-3xl font-bold sm:text-4xl">
+          <h2 className="text-2xl font-bold sm:text-4xl">
             Let&apos;s connect.
           </h2>
           <p className="text-base leading-7 text-violet-100/80">

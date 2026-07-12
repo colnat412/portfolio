@@ -1,20 +1,30 @@
 "use client";
 
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes, MouseEvent, ReactNode } from "react";
 
-interface ScrollButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> {
+interface ScrollButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   targetId: string;
 }
 
-const ScrollButton = ({ children, targetId, ...props }: ScrollButtonProps) => {
-  const handleScroll = () => {
+const ScrollButton = ({
+  children,
+  targetId,
+  onClick,
+  ...props
+}: ScrollButtonProps) => {
+  const handleScroll = (event: MouseEvent<HTMLButtonElement>) => {
     document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
+    onClick?.(event);
   };
 
   return (
-    <button {...props} onClick={handleScroll} type="button">
+    <button
+      className="cursor-pointer"
+      {...props}
+      onClick={handleScroll}
+      type="button"
+    >
       {children}
     </button>
   );

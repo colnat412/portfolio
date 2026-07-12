@@ -4,14 +4,14 @@ import ExperienceCard from "./ExperienceCard";
 const WorkExperience = () => {
   return (
     <section
-      className="mx-auto w-full max-w-5xl px-6 py-16 sm:px-10 lg:py-24"
+      className="mx-auto w-full max-w-5xl px-4 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-24"
       id="work-experience"
     >
-      <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+      <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
         Work Experience
       </h2>
 
-      <div className="mt-10 flex flex-col">
+      <div className="mt-8 flex flex-col sm:mt-10">
         {experiences.map((experience, index) => (
           <div
             className={`flex items-stretch gap-5 sm:gap-7 ${
