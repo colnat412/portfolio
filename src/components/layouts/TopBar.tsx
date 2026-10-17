@@ -1,96 +1,106 @@
 "use client";
-
-import ScrollButton from "@/components/common/ScrollButton";
+import { RESUME_PATH } from "@/constants/data";
+import { useEffect, useState } from "react";
 import { cn } from "@/libs/utils";
-import { useState } from "react";
-
-interface TopBarProps {
-  className?: string;
-}
-
-const TopBar = (props: TopBarProps) => {
-  const { className } = props;
+const links = [
+  { id: "home", label: "Overview" },
+  { id: "work-experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "certificates", label: "Certificates" },
+  { id: "contact", label: "Contact" },
+];
+export default function TopBar({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
-  const closeMenu = () => setIsOpen(false);
-
-  const itemClassName =
-    "cursor-pointer w-full rounded-lg px-3 py-2 text-left text-sm font-medium text-violet-100 transition-colors md:w-auto md:px-2";
-
+  const [active, setActive] = useState("home");
+  useEffect(() => {
+    const update = () => {
+      let current = "home";
+      for (const { id } of links) {
+        const section = document.getElementById(id);
+        if (
+          section &&
+          section.getBoundingClientRect().top <= window.innerHeight * 0.4
+        )
+          current = id;
+      }
+      if (
+        window.scrollY + window.innerHeight >=
+        document.documentElement.scrollHeight - 8
+      )
+        current = "contact";
+      setActive(current);
+    };
+    let frame = 0;
+    const scroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    };
+    const escape = (event: KeyboardEvent) => {
+      if (
+        event.key === "Escape" &&
+        document
+          .getElementById("menu-toggle")
+          ?.getAttribute("aria-expanded") === "true"
+      ) {
+        setIsOpen(false);
+        document.getElementById("menu-toggle")?.focus();
+      }
+    };
+    update();
+    window.addEventListener("scroll", scroll, { passive: true });
+    window.addEventListener("resize", scroll);
+    window.addEventListener("keydown", escape);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scroll);
+      window.removeEventListener("resize", scroll);
+      window.removeEventListener("keydown", escape);
+    };
+  }, []);
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-40 w-full bg-[#1A0B2E]/95 shadow-[0_6px_22px_-3px_rgba(0,0,0,0.25)] backdrop-blur",
-        className,
-      )}
-    >
-      <div className="mx-auto flex min-h-16 w-full max-w-6xl flex-wrap items-center justify-between px-4 sm:px-6 md:min-h-20 lg:px-10">
-        <ScrollButton
-          className="cursor-pointer text-xl font-bold tracking-wide text-white sm:text-2xl"
-          targetId="home"
-        >
-          COLNAT
-        </ScrollButton>
+    <header className={cn("site-header", className)}>
+      <div className="nav-shell">
+        <a href="#home" className="wordmark" onClick={() => setIsOpen(false)}>
+          colnat<span>.</span>
+        </a>
         <button
+          id="menu-toggle"
+          className="menu-toggle"
+          type="button"
           aria-controls="main-navigation"
           aria-expanded={isOpen}
           aria-label={isOpen ? "Close navigation" : "Open navigation"}
-          className="grid h-11 w-11 place-items-center rounded-lg text-violet-100 hover:bg-white/10 md:hidden"
-          onClick={() => setIsOpen((open) => !open)}
-          type="button"
+          onClick={() => setIsOpen(!isOpen)}
         >
-          <span className="sr-only">Menu</span>
-          <span className="flex w-5 flex-col gap-1.5">
-            <span className="h-0.5 w-full bg-current" />
-            <span className="h-0.5 w-full bg-current" />
-            <span className="h-0.5 w-full bg-current" />
-          </span>
+          {isOpen ? "Close -" : "Menu +"}
         </button>
         <nav
-          aria-label="Main navigation"
-          className={`${isOpen ? "flex" : "hidden"} w-full flex-col gap-1 border-t border-white/10 py-3 md:flex md:w-auto md:flex-row md:items-center md:gap-3 md:border-0 md:py-0 lg:gap-6`}
           id="main-navigation"
+          aria-label="Main navigation"
+          className={isOpen ? "navigation is-open" : "navigation"}
         >
-          <ScrollButton
-            className={itemClassName}
-            onClick={closeMenu}
-            targetId="home"
-          >
-            Home
-          </ScrollButton>
-          <ScrollButton
-            className={itemClassName}
-            onClick={closeMenu}
-            targetId="work-experience"
-          >
-            About
-          </ScrollButton>
-          <ScrollButton
-            className={itemClassName}
-            onClick={closeMenu}
-            targetId="projects"
-          >
-            Projects
-          </ScrollButton>
+          {links.map((link) => (
+            <a
+              key={link.id}
+              href={"#" + link.id}
+              aria-current={active === link.id ? "location" : undefined}
+              className={active === link.id ? "nav-link active" : "nav-link"}
+              onClick={() => setIsOpen(false)}
+            >
+              {link.label}
+            </a>
+          ))}
           <a
-            className={itemClassName}
-            href="/SofwareEngineer_NguyenTanLoc.pdf"
-            onClick={closeMenu}
-            rel="noreferrer"
+            className="nav-resume"
+            href={RESUME_PATH}
             target="_blank"
+            rel="noreferrer"
+            onClick={() => setIsOpen(false)}
           >
-            Resume
+            Resume <span aria-hidden="true">&#8599;</span>
           </a>
-          <ScrollButton
-            className={itemClassName}
-            onClick={closeMenu}
-            targetId="contact"
-          >
-            Contact
-          </ScrollButton>
         </nav>
       </div>
     </header>
   );
-};
-
-export default TopBar;
+}

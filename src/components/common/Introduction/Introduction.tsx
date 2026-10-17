@@ -1,31 +1,62 @@
-import Me from "./Me";
-
-const AboutMe = () => {
+import styles from "./PersonalCanvas.module.css";
+import ScrollButton from "../ScrollButton";
+import HeroWorkbench from "./HeroWorkbench";
+export default function Introduction() {
   return (
     <section
-      className="mx-auto flex w-full max-w-6xl flex-col items-center gap-8 px-4 py-12 text-white sm:gap-10 sm:px-6 sm:py-16 lg:flex-row lg:gap-20 lg:px-10 lg:py-24"
+      className={"section-shell " + styles.hero}
       id="home"
+      aria-labelledby="hero-title"
     >
-      <div className="shrink-0">
-        <Me className="h-auto w-44 sm:w-56 lg:w-64" />
-      </div>
-
-      <div className="w-full space-y-5 text-center lg:text-left">
-        <p className="text-sm font-medium tracking-[0.2em] text-violet-300">
-          Hello I'm
+      <div className={styles.copy}>
+        <p className={styles.intro + " hero-enter"}>
+          <span className={styles.nameMarker} aria-hidden="true" /> NGUYEN TAN
+          LOC <span className={styles.introDivider}>/</span> SOFTWARE ENGINEER
         </p>
-        <h1 className="text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
-          LOC NGUYEN TAN (Colnat)
+        <h1 id="hero-title" className={styles.title + " hero-enter"}>
+          Hey, I&apos;m Loc.
+          <br />
+          <span>
+            aka Colnat<span className={styles.period}>.</span>
+          </span>
+          <svg
+            className={styles.underline}
+            aria-hidden="true"
+            viewBox="0 0 390 22"
+            fill="none"
+          >
+            <path
+              d="M5 14C70 3 153 8 204 10S316 18 385 5M42 20C153 10 256 11 351 15"
+              stroke="currentColor"
+              strokeWidth="5"
+              strokeLinecap="round"
+            />
+          </svg>
         </h1>
-        <h2 className="text-xl font-medium text-violet-200 sm:text-2xl">
-          SOFTWARE ENGINEER
-        </h2>
-        <p className="max-w-2xl text-base leading-7 text-violet-100/80">
-          Software Engineer building clean and scalable web applications.
+        <p className={styles.position + " hero-enter"}>
+          Backend mind.
+          <br />
+          <span>Full-stack hands.</span>
+        </p>
+        <p className={styles.description + " hero-enter"}>
+          I make complex workflows feel a little simpler. Usually with NestJS,
+          Spring Boot and React. Always with an eye on how the whole thing fits
+          together.
+        </p>
+        <div className={styles.actions + " hero-enter"}>
+          <ScrollButton targetId="projects" className={styles.primary}>
+            See what I&apos;ve built <span aria-hidden="true">&#8599;</span>
+          </ScrollButton>
+        </div>
+        <p className={styles.availability + " hero-enter"}>
+          <span aria-hidden="true" /> Open to Software Engineer opportunities
         </p>
       </div>
+      <HeroWorkbench />
+      <a href="#projects" className={styles.scroll}>
+        <span aria-hidden="true">&#8627;</span> A few things I&apos;ve put into
+        the world
+      </a>
     </section>
   );
-};
-
-export default AboutMe;
+}

@@ -1,15 +1,59 @@
-const ProfessionalSummary = () => {
+import { Reveal } from "../Motion";
+const capabilities = [
+  {
+    index: "01",
+    title: "Frontend development",
+    detail: "Responsive applications and clear user workflows.",
+    tech: "React.js / Next.js / Tailwind CSS",
+    glyph: "[ ]",
+  },
+  {
+    index: "02",
+    title: "Backend development",
+    detail: "Scalable APIs, permissions and real-time features.",
+    tech: "NestJS / Spring Boot / TypeScript / Java",
+    glyph: "{ }",
+  },
+  {
+    index: "03",
+    title: "Data & real-time systems",
+    detail: "Reliable data models and optimized queries.",
+    tech: "PostgreSQL / MySQL / Redis",
+    glyph: "</>",
+  },
+];
+export default function ProfessionalSummary() {
   return (
-    <section className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6 lg:px-10 lg:py-12">
-      <p className="max-w-4xl border-l-2 border-violet-500 pl-4 text-base leading-7 text-violet-100/85 sm:pl-5 sm:text-xl sm:leading-9">
-        Software Engineer specializing in the TypeScript ecosystem, with core
-        expertise in NestJS and React.js, Next.js. Adept at building scalable
-        web applications, robust CRM/BI platforms, and real-time features,
-        leveraging modern databases and containerized deployment for end-to-end
-        delivery.
-      </p>
+    <section className="summary section-shell" aria-labelledby="summary-title">
+      <Reveal>
+        <div className="summary-intro">
+          <p className="eyebrow" id="summary-title">
+            A FEW TOOLS I REACH FOR.
+            <br />
+            FROM BACKEND TO BROWSER.
+          </p>
+          <p>
+            The backend is my starting point.
+            <br className="hidden sm:block" />{" "}
+            <span>The whole application is my scope.</span>
+          </p>
+        </div>
+        <div className="capability-grid">
+          {capabilities.map((item) => (
+            <article className="capability" key={item.index}>
+              <div className="capability-top">
+                <span>{item.index} / WHAT I WORK WITH</span>
+                <span className="capability-glyph" aria-hidden="true">
+                  {item.glyph}
+                </span>
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.detail}</p>
+              <span className="capability-tech">{item.tech}</span>
+            </article>
+          ))}
+        </div>
+      </Reveal>
     </section>
   );
-};
-
-export default ProfessionalSummary;
+}

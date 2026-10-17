@@ -1,38 +1,37 @@
 import { experiences } from "@/constants/data";
 import ExperienceCard from "./ExperienceCard";
-
-const WorkExperience = () => {
+import { Reveal } from "../Motion";
+export default function WorkExperience() {
   return (
     <section
-      className="mx-auto w-full max-w-5xl px-4 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-24"
+      className="section-shell section-space"
       id="work-experience"
+      aria-labelledby="experience-title"
     >
-      <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-        Work Experience
-      </h2>
-
-      <div className="mt-8 flex flex-col sm:mt-10">
-        {experiences.map((experience, index) => (
-          <div
-            className={`flex items-stretch gap-5 sm:gap-7 ${
-              index < experiences.length - 1 ? "pb-8" : ""
-            }`}
-            key={`${experience.company}-${index}`}
-          >
-            <div className="flex w-6 shrink-0 flex-col items-center sm:w-10">
-              <span className="h-6 w-6 shrink-0 rounded-full border-4 border-[#11071F] bg-violet-400 shadow-[0_0_18px_rgba(167,139,250,0.8)] sm:h-10 sm:w-10" />
-              {index < experiences.length - 1 && (
-                <span className="mt-3 w-px flex-1 bg-violet-500/50" />
-              )}
-            </div>
-            <div className="min-w-0 flex-1">
-              <ExperienceCard {...experience} index={index} />
-            </div>
+      <Reveal>
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">01 / WHERE I HAVE BEEN BUILDING</p>
+            <h2 id="experience-title">
+              Experience,
+              <br />
+              <span>earned in production.</span>
+            </h2>
           </div>
+          <p className="section-note">
+            CRM/BI, asset management
+            <br />
+            and logistics applications.
+          </p>
+        </div>
+      </Reveal>
+      <div className="experience-list">
+        {experiences.map((experience, index) => (
+          <Reveal key={experience.company} delay={index * 80}>
+            <ExperienceCard {...experience} index={index} />
+          </Reveal>
         ))}
       </div>
     </section>
   );
-};
-
-export default WorkExperience;
+}

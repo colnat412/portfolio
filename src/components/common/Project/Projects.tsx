@@ -1,23 +1,37 @@
 import { projects } from "@/constants/data";
 import ProjectCard from "./ProjectCard";
-
-const Projects = () => {
+import { Reveal } from "../Motion";
+export default function Projects() {
   return (
     <section
-      className="mx-auto w-full max-w-5xl px-4 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-24"
+      className="section-shell section-space"
       id="projects"
+      aria-labelledby="projects-title"
     >
-      <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-        Projects
-      </h2>
-
-      <div className="mt-8 space-y-14 sm:mt-10 sm:space-y-16 lg:space-y-24">
+      <Reveal>
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">02 / THINGS I HAVE BUILT</p>
+            <h2 id="projects-title">
+              Built it.
+              <br />
+              <span>Here&apos;s how.</span>
+            </h2>
+          </div>
+          <p className="section-note">
+            Backend and frontend roles
+            <br />
+            across application projects.
+          </p>
+        </div>
+      </Reveal>
+      <div className="projects-list">
         {projects.map((project, index) => (
-          <ProjectCard key={project.id} {...project} index={index} />
+          <Reveal key={project.id}>
+            <ProjectCard {...project} index={index} />
+          </Reveal>
         ))}
       </div>
     </section>
   );
-};
-
-export default Projects;
+}

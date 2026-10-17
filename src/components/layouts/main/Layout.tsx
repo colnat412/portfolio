@@ -1,21 +1,20 @@
 import Footer from "../Footer";
 import TopBar from "../TopBar";
 import BackToTop from "../BackToTop";
-
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout = (props: LayoutProps) => {
-  const { children } = props;
+import { ReadingProgress } from "@/components/common/Motion";
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-full w-full flex-1 flex-col">
+    <div className="site-layout">
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
+      <ReadingProgress />
       <TopBar />
-      <div className="min-h-0 flex-1 bg-[#11071F]">{children}</div>
+      <main id="main-content" tabIndex={-1}>
+        {children}
+      </main>
       <Footer />
       <BackToTop />
     </div>
   );
-};
-
-export default Layout;
+}

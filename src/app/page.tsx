@@ -1,3 +1,4 @@
+import Certificates from "@/components/common/Certificates/Certificates";
 import AboutMe from "@/components/common/Introduction/Introduction";
 import ProfessionalSummary from "@/components/common/Introduction/ProfessionalSummary";
 import WorkExperience from "@/components/common/About/WorkExperience";
@@ -10,6 +11,7 @@ export default function Home() {
       <ProfessionalSummary />
       <WorkExperience />
       <Projects />
+      <Certificates />
     </>
   );
 }

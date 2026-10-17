@@ -1,66 +1,160 @@
 interface ProjectCardProps {
   title: string;
   category: string;
+  kind: string;
+  teamSize: number;
   description: string;
   technologies: string[];
+  contributions: string[];
+  href: string;
+  linkLabel: string;
   index: number;
   isReverse: boolean;
 }
-
-const ProjectCard = (props: ProjectCardProps) => {
-  const { title, category, description, technologies, index, isReverse } =
-    props;
-
+function ProjectIllustration({ chat }: { chat: boolean }) {
   return (
-    <article
-      className={`grid items-center gap-8 lg:grid-cols-2 lg:gap-14 ${
-        isReverse ? "lg:[&>*:first-child]:order-2" : ""
-      }`}
+    <div
+      className={
+        "project-illustration " + (chat ? "chat-preview" : "trip-preview")
+      }
+      aria-hidden="true"
     >
-      <div className="flex min-h-56 flex-col overflow-hidden rounded-xl border border-violet-500/30 bg-[#1A0B2E] shadow-[0_14px_36px_rgba(0,0,0,0.25)] sm:min-h-64 sm:rounded-2xl">
-        <div className="flex items-center justify-between border-b border-violet-500/20 px-5 py-3 text-xs text-violet-200/70">
-          <span>PROJECT PREVIEW</span>
-          <span>{String(index + 1).padStart(2, "0")}</span>
-        </div>
-        <div className="flex flex-1 flex-col justify-between gap-8 bg-linear-to-br from-violet-700/35 via-[#1A0B2E] to-fuchsia-700/20 p-6">
-          <div className="space-y-3">
-            <div className="h-3 w-2/5 rounded-full bg-violet-200/70" />
-            <div className="h-2 w-4/5 rounded-full bg-violet-200/20" />
-            <div className="h-2 w-3/5 rounded-full bg-violet-200/20" />
+      <div className="preview-window">
+        <div className="preview-topbar">
+          <div className="window-dots">
+            <i />
+            <i />
+            <i />
           </div>
-          <div className="grid grid-cols-3 gap-3">
-            <div className="h-16 rounded-lg bg-violet-200/15" />
-            <div className="h-16 rounded-lg bg-violet-200/10" />
-            <div className="h-16 rounded-lg bg-violet-200/15" />
+          <span>{chat ? "workspace / messages" : "workspace / trips"}</span>
+        </div>
+        <div className="preview-workspace">
+          <aside>
+            <span className="preview-logo">
+              {chat ? "C" : "T"}
+              <b>{chat ? "Connect" : "Trip Plan"}</b>
+            </span>
+            <span className="preview-nav active">
+              {chat ? "# engineering" : "Itinerary"}
+            </span>
+            <span className="preview-nav">{chat ? "# design" : "Budget"}</span>
+            <span className="preview-nav">
+              {chat ? "# general" : "Members"}
+            </span>
+          </aside>
+          <div className="preview-content">
+            {chat ? (
+              <>
+                <div className="preview-heading">
+                  # engineering <span>&#9679; Live</span>
+                </div>
+                <div className="message">
+                  <i>JD</i>
+                  <div>
+                    <b>Team workspace</b>
+                    <p>A place for the next big idea.</p>
+                  </div>
+                </div>
+                <div className="message">
+                  <i>LC</i>
+                  <div>
+                    <b>Colnat</b>
+                    <p>Let&apos;s build something together.</p>
+                  </div>
+                </div>
+                <div className="typing">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                <div className="message-input">
+                  Message #engineering <span>&#8594;</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="preview-heading">
+                  Plan the trip. Split the bill.
+                </div>
+                <div className="course-art">
+                  <span>A &#8594; B</span>
+                  <b>Itinerary / Budget / Settle</b>
+                </div>
+                <div className="course-bottom">
+                  <span>Equal / Exact / % / Shares</span>
+                  <span>&#8594;</span>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
-
-      <div className={isReverse ? "text-left lg:text-right" : "text-left"}>
-        <p className="text-md font-medium text-violet-400">{category}</p>
-        <h3 className="mt-2 wrap-break-word text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
-          {title}
-        </h3>
-        <p className="mt-5 rounded-xl bg-[#1A0B2E] p-5 text-sm leading-6 text-violet-100/80 shadow-[0_10px_26px_rgba(0,0,0,0.2)] sm:text-base">
-          {description}
+      <span className="illustration-caption">
+        {chat
+          ? "REAL-TIME CONNECTION, BY DESIGN"
+          : "TRIP PLANNING / SHARED EXPENSES"}
+      </span>
+    </div>
+  );
+}
+export default function ProjectCard({
+  title,
+  category,
+  kind,
+  teamSize,
+  description,
+  technologies,
+  contributions,
+  href,
+  linkLabel,
+  index,
+  isReverse,
+}: ProjectCardProps) {
+  return (
+    <article className={"project-card " + (isReverse ? "project-reverse" : "")}>
+      <div className="project-visual">
+        <ProjectIllustration chat={kind === "chat"} />
+        <p className="preview-disclaimer">
+          Concept illustration / Not a product screenshot
         </p>
-        <div
-          className={`mt-5 flex flex-wrap gap-2 ${
-            isReverse ? "lg:justify-end" : ""
-          }`}
-        >
+      </div>
+      <div className="project-copy">
+        <p className="eyebrow">
+          PROJECT {String(index + 1).padStart(2, "0")} / {category}
+        </p>
+        <h3>{title}</h3>
+        <p className="project-team">
+          {teamSize === 1
+            ? "Solo project / End-to-end development"
+            : "Team of " + teamSize + " / Backend development"}
+        </p>
+        <p className="body-copy">{description}</p>
+        <div className="tech-list">
           {technologies.map((technology) => (
-            <span
-              className="rounded-full border border-violet-500/40 bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-200"
-              key={technology}
-            >
-              {technology}
-            </span>
+            <span key={technology}>{technology}</span>
           ))}
         </div>
+        <a
+          className="project-link"
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {linkLabel} <span aria-hidden="true">&#8599;</span>
+        </a>
+        <details className="project-notes">
+          <summary>
+            What I built <span aria-hidden="true">+</span>
+          </summary>
+          <div className="project-notes-body">
+            <ul className="contribution-list">
+              {contributions.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </details>
       </div>
     </article>
   );
-};
-
-export default ProjectCard;
+}

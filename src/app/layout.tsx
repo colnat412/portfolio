@@ -10,7 +10,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Colnat - Portfolio",
+  title: "Colnat - Software Engineer",
+  description:
+    "Nguyen Tan Loc (Colnat), Software Engineer specializing in backend and full-stack development with NestJS, Spring Boot and React. Explore my experience and selected projects.",
 };
 
 export default function RootLayout({

@@ -14,7 +14,11 @@ const ScrollButton = ({
   ...props
 }: ScrollButtonProps) => {
   const handleScroll = (event: MouseEvent<HTMLButtonElement>) => {
-    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(targetId)?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
     onClick?.(event);
   };
 
