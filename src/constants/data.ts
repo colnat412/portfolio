@@ -105,7 +105,7 @@ export const projects = [
       "Implemented four expense-splitting methods: equal, exact amount, percentage and shares, with balance calculations and settlement suggestions.",
       "Integrated Gemini AI for itinerary generation and receipt extraction, plus Google OAuth, email OTP and JWT authentication with Redis-backed sessions and HttpOnly cookies through a Next.js BFF.",
     ],
-    href: "https://trip-budget-web-kappa.vercel.app",
+    href: "https://tripplaningg.vercel.app",
     linkLabel: "Explore Trip Plan",
     isReverse: true,
   },
