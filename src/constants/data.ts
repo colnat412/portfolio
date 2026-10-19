@@ -89,6 +89,22 @@ export const projects = [
     title: "Trip Plan",
     category: "Fullstack Developer",
     kind: "trip",
+    screenshots: [
+      {
+        src: "/projects/trip-plan/dashboard.png",
+        alt: "Trip Plan dashboard for Tri Ton showing the trip budget, spending categories and recent expenses",
+        caption: "Trip overview & shared expenses",
+        width: 1854,
+        height: 932,
+      },
+      {
+        src: "/projects/trip-plan/itinerary.png",
+        alt: "Trip Plan itinerary for Tri Ton showing daily activities, locations and estimated costs",
+        caption: "Daily itinerary & activity planning",
+        width: 1859,
+        height: 934,
+      },
+    ],
     teamSize: 1,
     description:
       "A solo full-stack application for planning trips, managing itineraries and sharing expenses, built around Identity, Core and AI services.",

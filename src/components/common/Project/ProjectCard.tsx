@@ -1,3 +1,6 @@
+import Image from "next/image";
+import styles from "./ProjectCard.module.css";
+
 interface ProjectCardProps {
   title: string;
   category: string;
@@ -10,6 +13,13 @@ interface ProjectCardProps {
   linkLabel: string;
   index: number;
   isReverse: boolean;
+  screenshots?: {
+    src: string;
+    alt: string;
+    caption: string;
+    width: number;
+    height: number;
+  }[];
 }
 function ProjectIllustration({ chat }: { chat: boolean }) {
   return (
@@ -109,14 +119,42 @@ export default function ProjectCard({
   linkLabel,
   index,
   isReverse,
+  screenshots,
 }: ProjectCardProps) {
   return (
     <article className={"project-card " + (isReverse ? "project-reverse" : "")}>
       <div className="project-visual">
-        <ProjectIllustration chat={kind === "chat"} />
-        <p className="preview-disclaimer">
-          Concept illustration / Not a product screenshot
-        </p>
+        {screenshots?.length ? (
+          <div className={styles.gallery}>
+            {screenshots.map((screenshot) => (
+              <figure key={screenshot.src} className={styles.screenshot}>
+                <a
+                  href={screenshot.src}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`View ${screenshot.caption} screenshot (opens in a new tab)`}
+                >
+                  <Image
+                    src={screenshot.src}
+                    alt={screenshot.alt}
+                    width={screenshot.width}
+                    height={screenshot.height}
+                    sizes="(max-width: 850px) 100vw, 50vw"
+                    className={styles.image}
+                  />
+                </a>
+                <figcaption>{screenshot.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        ) : (
+          <>
+            <ProjectIllustration chat={kind === "chat"} />
+            <p className="preview-disclaimer">
+              Concept illustration / Not a product screenshot
+            </p>
+          </>
+        )}
       </div>
       <div className="project-copy">
         <p className="eyebrow">
