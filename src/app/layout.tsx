@@ -2,6 +2,7 @@ import Layout from "@/components/layouts/main/Layout";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import "./professional-dark.css";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],

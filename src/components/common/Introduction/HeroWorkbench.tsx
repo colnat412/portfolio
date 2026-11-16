@@ -1,116 +1,116 @@
 "use client";
-import { useState } from "react";
-import Me from "./Me";
+
+import { useState, type CSSProperties } from "react";
 import styles from "./PersonalCanvas.module.css";
-const specialties = [
+
+const files = [
   {
-    id: "backend",
-    name: "Backend",
-    tools: "NestJS / Spring Boot",
-    detail:
-      "APIs, application services and permissions. The part that keeps everything connected.",
-    glyph: "{ }",
+    name: "profile.ts",
+    language: "TypeScript",
+    symbol: "TS",
+    lines: [
+      "// A little introduction, in code.",
+      "export const engineer = {",
+      '  name: "Nguyen Tan Loc",',
+      '  alias: "Colnat",',
+      '  role: "Software Engineer",',
+      "",
+      '  focus: ["Backend", "Full-stack"],',
+      '  currentlyAt: "Hanbiro Vietnam",',
+      "  openToOpportunities: true,",
+      "};",
+    ],
   },
   {
-    id: "frontend",
-    name: "Frontend",
-    tools: "React.js / Next.js",
-    detail:
-      "Dashboards and business workflows, shaped into interfaces people can actually use.",
-    glyph: "[ ]",
+    name: "stack.json",
+    language: "JSON",
+    symbol: "{ }",
+    lines: [
+      "{",
+      '  "backend": [',
+      '    "NestJS", "Spring Boot"',
+      "  ],",
+      '  "frontend": ["React", "Next.js"],',
+      '  "languages": ["TypeScript", "Java"],',
+      '  "data": [',
+      '    "PostgreSQL", "MySQL", "Redis"',
+      "  ]",
+      "}",
+    ],
   },
   {
-    id: "data",
-    name: "Data",
-    tools: "MySQL / PostgreSQL / Redis",
-    detail:
-      "Queries, persistence and real-time features. Making the data work as hard as the interface.",
-    glyph: "</>",
+    name: "approach.md",
+    language: "Markdown",
+    symbol: "M↓",
+    lines: [
+      "# From problem to product",
+      "",
+      "01  Understand the workflow.",
+      "02  Design the data and APIs.",
+      "03  Build the experience.",
+      "04  Test the important paths.",
+      "05  Refine the details.",
+      "",
+      "> Keep learning. Keep building.",
+      "",
+    ],
   },
-] as const;
+];
+
+function highlight(line: string) {
+  return line.split(/("[^"]*"|\/\/.*|\b(?:export|const|true)\b)/g).map((part, index) => {
+    const className = part.startsWith("//")
+      ? styles.comment
+      : part.startsWith('"')
+        ? styles.string
+        : /^(export|const|true)$/.test(part)
+          ? styles.keyword
+          : undefined;
+    return <span key={index} className={className}>{part}</span>;
+  });
+}
+
 export default function HeroWorkbench() {
-  const [selected, setSelected] = useState<(typeof specialties)[number]>(
-    specialties[0],
-  );
+  const [selected, setSelected] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const file = files[selected];
+
   return (
-    <div className={styles.canvas}>
-      <div className={styles.art}>
-        <svg
-          className={styles.doodles}
-          aria-hidden="true"
-          viewBox="0 0 540 410"
-          fill="none"
+    <div className={styles.canvas} data-paused={paused}>
+      <div className={styles.editorChrome}>
+        <span className={styles.windowDots} aria-hidden="true"><i /><i /><i /></span>
+        <span>colnat / workspace</span>
+        <button
+          type="button"
+          aria-pressed={paused}
+          aria-label={paused ? "Resume animation" : "Pause animation"}
+          onClick={() => setPaused(!paused)}
         >
-          <path
-            d="M37 174C2 115 32 67 93 85M75 71L96 85L75 97M441 49L448 66L468 68L452 80L455 100L440 88L423 96L429 77L417 63L437 66ZM470 288C507 263 522 294 492 311C468 323 480 339 507 337M35 318L60 339M37 341L61 316"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M105 370C180 387 364 394 425 356"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeDasharray="5 8"
-            strokeLinecap="round"
-          />
-        </svg>
-        <span className={styles.sticky}>
-          behind the code,
-          <br />
-          <strong>there&apos;s a person.</strong>
-        </span>
-        <div className={styles.portrait}>
-          <Me aria-hidden="true" />
-          <span className={styles.signature}>
-            Colnat<span aria-hidden="true">&#10022;</span>
-          </span>
-        </div>
-        <span className={styles.sideNote}>
-          a work in progress.
-          <br />
-          always building.
-        </span>
-        <span className={styles.codeSticker} aria-hidden="true">
-          &lt;/&gt;
-        </span>
-        <span className={styles.smallStar} aria-hidden="true">
-          &#10022;
-        </span>
+          {paused ? "Play ▷" : "Pause Ⅱ"}
+        </button>
       </div>
-      <div className={styles.notes}>
-        <span className={styles.tape} aria-hidden="true" />
-        <div className={styles.noteHeader}>
-          <span>A PEEK INTO MY TOOLBOX</span>
-          <span aria-hidden="true">&#8600;</span>
-        </div>
-        <div
-          className={styles.specialties}
-          role="group"
-          aria-label="Explore engineering specialties"
-        >
-          {specialties.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              aria-pressed={selected.id === item.id}
-              aria-label={item.name + " specialty"}
-              onClick={() => setSelected(item)}
-            >
-              <span aria-hidden="true">{item.glyph}</span>
-              {item.name}
-            </button>
+      <div className={styles.fileTabs} role="group" aria-label="Explore my developer profile">
+        {files.map((item, index) => (
+          <button key={item.name} type="button" aria-pressed={selected === index} onClick={() => setSelected(index)}>
+            <span aria-hidden="true">{item.symbol}</span>{item.name}
+          </button>
+        ))}
+      </div>
+      <div className={styles.breadcrumb} aria-hidden="true">portfolio <span>/</span> about <span>/</span> {file.name}</div>
+      <div className={styles.codeViewport} role="region" aria-label={`${file.name} code preview`} tabIndex={0}>
+        <pre className={styles.code} key={file.name}><code>
+          {file.lines.map((line, index) => (
+            <span className={styles.codeLine} key={index} style={{ "--line-delay": `${index * 65}ms` } as CSSProperties}>
+              <span className={styles.lineNumber} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+              <span>{highlight(line)}{index === file.lines.length - 1 && <span className={styles.caret} aria-hidden="true" />}{"\n"}</span>
+            </span>
           ))}
-        </div>
-        <div className={styles.focus} aria-live="polite">
-          <h2>{selected.tools}</h2>
-          <p>{selected.detail}</p>
-        </div>
-        <a className={styles.currentRole} href="#work-experience">
-          <span>Currently building at</span> Hanbiro Vietnam{" "}
-          <span aria-hidden="true">&#8599;</span>
-        </a>
+        </code></pre>
+      </div>
+      <div className={styles.editorStatus}><span><i aria-hidden="true" /> Code sketch</span><span>{file.language} <span aria-hidden="true">·</span> UTF-8</span></div>
+      <div className={styles.workspaceFooter}>
+        <div><span className={styles.footerLabel}>BEHIND THE CODE</span><p>Backend mind. Full-stack hands.</p></div>
+        <a href="https://github.com/colnat412" target="_blank" rel="noreferrer" aria-label="Explore Colnat on GitHub (opens in a new tab)">GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </div>
   );

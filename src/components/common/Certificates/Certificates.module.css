@@ -273,3 +273,20 @@
     font-size: 11px;
   }
 }
+
+/* Credentials share the site palette; document previews retain their paper. */
+.card, .card:nth-child(even), .empty {
+  background: var(--portfolio-surface);
+  border: 1px solid var(--portfolio-border);
+  border-radius: 4px;
+  transform: none;
+}
+.tape { display: none; }
+.mark { color: var(--game-secondary); background: #202b35; border-radius: 4px; }
+.actions { border-top: 1px solid var(--portfolio-border); }
+.actions a, .credential dd { color: var(--game-secondary); }
+.score { background: #242c24; border-color: #44593c; color: #b9df98; border-radius: 3px; }
+.emptyMark, .emptyDoodle { color: var(--game-secondary); }
+.imageSlot { border-color: var(--portfolio-border); border-radius: 3px; }
+.imageEmpty { background: var(--portfolio-surface); color: var(--game-secondary); }
+.imageEmpty svg { color: var(--game-secondary); }

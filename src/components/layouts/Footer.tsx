@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@/libs/utils";
 import { Reveal } from "../common/Motion";
 export default function Footer({ className }: { className?: string }) {
@@ -31,7 +32,12 @@ export default function Footer({ className }: { className?: string }) {
         </Reveal>
         <div className="footer-bottom">
           <a className="wordmark" href="#home">
-            colnat<span>.</span>
+            <Image
+            src="/brand/colnat-logo-light.svg"
+            width={120}
+            height={36}
+            alt="Colnat"
+          />
           </a>
           <p className="copyright">
             &#169; {new Date().getFullYear()} Colnat. All rights reserved.

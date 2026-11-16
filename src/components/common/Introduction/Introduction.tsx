@@ -17,21 +17,8 @@ export default function Introduction() {
           Hey, I&apos;m Loc.
           <br />
           <span>
-            aka Colnat<span className={styles.period}>.</span>
+            Software Engineer<span className={styles.period}>.</span>
           </span>
-          <svg
-            className={styles.underline}
-            aria-hidden="true"
-            viewBox="0 0 390 22"
-            fill="none"
-          >
-            <path
-              d="M5 14C70 3 153 8 204 10S316 18 385 5M42 20C153 10 256 11 351 15"
-              stroke="currentColor"
-              strokeWidth="5"
-              strokeLinecap="round"
-            />
-          </svg>
         </h1>
         <p className={styles.position + " hero-enter"}>
           Backend mind.

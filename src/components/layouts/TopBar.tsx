@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { RESUME_PATH } from "@/constants/data";
 import { useEffect, useState } from "react";
 import { cn } from "@/libs/utils";
@@ -61,7 +62,13 @@ export default function TopBar({ className }: { className?: string }) {
     <header className={cn("site-header", className)}>
       <div className="nav-shell">
         <a href="#home" className="wordmark" onClick={() => setIsOpen(false)}>
-          colnat<span>.</span>
+          <Image
+            src="/brand/colnat-logo-light.svg"
+            width={120}
+            height={36}
+            alt="Colnat"
+            priority
+          />
         </a>
         <button
           id="menu-toggle"
